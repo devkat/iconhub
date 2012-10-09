@@ -43,10 +43,13 @@ class AppTest extends TestCase("app") {
 
     def handledXHtml(file: String) =
       file.endsWith(".html") || file.endsWith(".htm") || file.endsWith(".xhtml")
+      
+    def excluded(file: File) =
+      file.getPath().matches("(.*)\\/vendor\\/(.*)")
 
     def wellFormed(file: File) {
       if (file.isDirectory)
-        for (f <- file.listFiles) wellFormed(f)
+        for (f <- file.listFiles if !excluded(f)) wellFormed(f)
 
       /*
       if (file.isFile && file.exists && handledXml(file.getName)) {

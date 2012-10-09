@@ -10,6 +10,7 @@ import Helpers._
 import _root_.net.liftweb.mapper.{DB, ConnectionManager, Schemifier, DefaultConnectionIdentifier, StandardDBVendor}
 import _root_.java.sql.{Connection, DriverManager}
 import _root_.net.iconhub.model._
+import net.iconhub.openid.DefaultOpenIDVendor
 
 
 /**
@@ -19,10 +20,8 @@ import _root_.net.iconhub.model._
 class Boot {
   def boot {
     if (!DB.jndiJdbcConnAvailable_?) {
-      val vendor = 
-	new StandardDBVendor(Props.get("db.driver") openOr "org.h2.Driver",
-			     Props.get("db.url") openOr 
-			     "jdbc:h2:lift_proto.db;AUTO_SERVER=TRUE",
+      val vendor = new StandardDBVendor(Props.get("db.driver") openOr "org.h2.Driver",
+			     Props.get("db.url").get,
 			     Props.get("db.user"), Props.get("db.password"))
 
       LiftRules.unloadHooks.append(vendor.closeAllConnections_! _)
@@ -30,13 +29,20 @@ class Boot {
       DB.defineConnectionManager(DefaultConnectionIdentifier, vendor)
     }
 
+    LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent))
+    LiftRules.loggedInTest = Full(() => User.loggedIn_?)
+    LiftRules.dispatch.append(DefaultOpenIDVendor.dispatchPF)
+    LiftRules.snippets.append(DefaultOpenIDVendor.snippetPF)
+
     // where to search snippet
     LiftRules.addToPackages("net.iconhub")
     Schemifier.schemify(true, Schemifier.infoF _, User)
 
     // Build SiteMap
     def sitemap() = SiteMap(
-      Menu("Home") / "index" >> User.AddUserMenusAfter, // Simple menu form
+      Menu("Home") / "index",
+      Menu(Loc("", new Link(Nil, false), "My Account", Loc.PlaceHolder, User.AddUserMenusUnder)),
+      //Menu(Loc.PlaceHolder"My Account") / "" >> User.AddUserMenusUnder,
       // Menu with special Link
       Menu(Loc("Static", Link(List("static"), true, "/static/index"), 
 	       "Static Content")))
@@ -45,15 +51,15 @@ class Boot {
 
     /*
      * Show the spinny image when an Ajax call starts
-     */
     LiftRules.ajaxStart =
       Full(() => LiftRules.jsArtifacts.show("ajax-loader").cmd)
+     */
 
     /*
      * Make the spinny image go away when it ends
-     */
     LiftRules.ajaxEnd =
       Full(() => LiftRules.jsArtifacts.hide("ajax-loader").cmd)
+     */
 
     LiftRules.early.append(makeUtf8)
 

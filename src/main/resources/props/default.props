@@ -1,1 +1,5 @@
 # Properties in this file will be read when running in dev mode
+db.driver=org.postgresql.Driver
+db.url=jdbc:postgresql:iconhub
+db.user=iconhub
+db.password=iconhub

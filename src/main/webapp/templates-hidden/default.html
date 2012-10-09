@@ -9,39 +9,57 @@
     <style class="lift:CSS.blueprint" />
     <style class="lift:CSS.fancyType" />
      -->
+     
+    <!-- jQuery CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     
-    <script type="text/javascript" data-dojo-config="async: 1, tlmSiblingOfDojo: 0, isDebug: 1"
+    <!-- Dojo CDN -->
+    <script type="text/javascript" data-dojo-config="async: true, tlmSiblingOfDojo: false, isDebug: true"
       src="//ajax.googleapis.com/ajax/libs/dojo/1.8.0/dojo/dojo.js"></script>
     <script type="text/javascript" src="/static/js/app.js"></script>
+    <link href="//ajax.googleapis.com/ajax/libs/dojo/1.8.0/dijit/themes/dijit.css" type="text/css" rel="stylesheet"></link>
+    
+    <!-- Bootstrap CDN -->
+    <!-- 
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet"></link>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>
+     -->
+    
+    <!-- Local -->
+    <link href="/static/vendor/dbootstrap/theme/dbootstrap.css" type="text/css" rel="stylesheet"></link>
+    <link rel="stylesheet" href="/static/css/iconhub.css" type="text/css" media="screen" title="no title" charset="utf-8"></link>
+    <link rel="stylesheet" href="/static/vendor/bootswatch/spacelab/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="/static/vendor/bootswatch/docs.css"></link>
+    <link rel="stylesheet" href="/static/css/iconhub.css"></link>
+    
   </head>
-  <body>
-    <div class="container">
-      <div class="column span-12 last" style="text-align: right">
-        <h1 class="alt">iconserver<img alt="" id="ajax-loader" style="display:none; margin-bottom: 0px; margin-left: 5px" src="/images/ajax-loader.gif"/></h1>
-      </div>
-
-      <hr/>
-
-      <div class="column span-6 colborder sidebar">
-        <hr class="space" />
-        <span class="lift:Menu.builder" />	
-        <div>
-          <span class="lift:Msgs?showAll=true"/>
-          <hr class="space" />
+  <body class="bootstrap">
+  
+    <div class="container" style="display: none">
+    
+    <header id="overview" class="jumbotron subhead">
+      <div class="row">
+        <div class="span6">
+          <h1 class="iconhub-logo"><span class="iconhub-logo-icon">icon</span><span class="iconhub-logo-hub">hub</span></h1>
+          <p class="lead">Find, use, share icons.</p>
         </div>
       </div>
+      <lift:Menu.builder
+            li_item:id="selectedMenu"
+            top:id="iconhub-menu"
+            expandAll="true"/>
+    </header>
+
+    <span class="lift:Msgs?showAll=true"></span>
 
       <div class="column span-17 last">
-        <div id="content" >
-	  <!-- The HTML content will go here -->
-	</div>
+        <div id="content" ><!-- The HTML content will go here --></div>
       </div>
 
-      <hr />
       <div class="column span-23 last" style="text-align: center">
         <h4 class="alt">
           <a href="http://www.liftweb.net"><i>Lift</i></a> 
-	        is Copyright 2007-2010 WorldWide Conferencing, LLC.  Distributed under an Apache 2.0 License.</h4>
+          is Copyright 2007-2010 WorldWide Conferencing, LLC.  Distributed under an Apache 2.0 License.</h4>
       </div>
       
     </div>
