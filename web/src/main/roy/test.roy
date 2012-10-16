@@ -1,0 +1,8 @@
+define ['dojo/_base/declare'] (\declare ->
+  declare null {
+    sayhi: \(x:String) ->
+      alert x
+    test: \(x:Number) ->
+      alert (if x > 0 then "Bigger" else "Not bigger")
+  }
+)

@@ -18,11 +18,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>net.liftweb</groupId>
-      <artifactId>lift-mapper_2.9.1</artifactId>
-      <version>2.4-M5</version>
-    </dependency>
-    <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>0.9.26</version>
@@ -52,12 +47,37 @@
       <version>${scala.version}</version>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+      <groupId>net.liftweb</groupId>
+      <artifactId>lift-webkit_2.9.1</artifactId>
+    </dependency>
     <dependency>
       <groupId>net.liftweb</groupId>
       <artifactId>lift-openid_2.9.1</artifactId>
-      <version>2.4</version>
     </dependency>
+    
+    <dependency>
+      <groupId>eu.getintheloop</groupId>
+      <artifactId>lift-shiro_2.9.1</artifactId>
+      <version>0.0.6-SNAPSHOT</version>
+    </dependency>
+    <!-- 
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-core</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-web</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>20030211.134440</version>
+    </dependency>
+     -->
 
     <dependency>
       <groupId>batik</groupId>
@@ -81,6 +101,16 @@
         <configuration>
           <contextPath>/</contextPath>
           <scanIntervalSeconds>5</scanIntervalSeconds>
+          <!--
+          <webAppSourceDirectory>${project.basedir}/src/main/webapp:${project.build.directory}/${project.artifactId}-${project.version}</webAppSourceDirectory>
+          -->
+          <webAppConfig>
+            <contextPath>/</contextPath>
+            <baseResource implementation="org.mortbay.resource.ResourceCollection">
+              <resourcesAsCSV>${project.basedir}/src/main/webapp,${project.build.directory}/${project.artifactId}-${project.version}</resourcesAsCSV>
+            </baseResource>
+          </webAppConfig>
+          
         </configuration>
       </plugin>
       <plugin>
@@ -96,6 +126,59 @@
         </executions>
         <configuration>
           <nosuffix>true</nosuffix>
+          <excludes>
+            <exclude>**/static/vendor/**</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <!-- 
+      <plugin>
+        <groupId>com.photon.phresco.plugins</groupId>
+        <artifactId>nodejs-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>start</goal>
+            </goals>
+            <configuration>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+       -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>/Volumes/Data/src/roy/roy/roy</executable>
+          <environmentVariables>
+            <PATH>/usr/local/bin:$PATH</PATH>
+          </environmentVariables>
+          <!-- optional -->
+          <!--
+          <workingDirectory>.</workingDirectory>
+          -->
+          <arguments>
+            <argument>-o</argument>
+            <argument>${project.build.directory}/${project.artifactId}-${project.version}/static/js</argument>
+            <argument>${project.basedir}/src/main/roy</argument>
+          <!-- 
+             -->
+          <!-- 
+            <argument>/Volumes/Data/src/iconhub/iconhub/web/src/main/roy</argument>
+             -->
+          </arguments>
         </configuration>
       </plugin>
     </plugins>

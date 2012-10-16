@@ -49,6 +49,23 @@
       <artifactId>postgresql</artifactId>
       <version>9.1-901.jdbc4</version>
     </dependency>
+    <dependency>
+      <groupId>org.scala-libs</groupId>
+      <artifactId>scalajpa_2.9.1</artifactId>
+      <version>1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>net.liftweb</groupId>
+      <artifactId>lift-jpa_2.9.1</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.liftweb</groupId>
+      <artifactId>lift-openid_2.9.1</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.liftweb</groupId>
+      <artifactId>lift-proto_2.9.1</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

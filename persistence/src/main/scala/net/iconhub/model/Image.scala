@@ -1,6 +1,7 @@
 package net.iconhub.model
 
 import javax.persistence._
+import net.devkat.lift.jpa.IdPk
 
 @Entity
 class Image extends IdPk {

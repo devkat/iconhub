@@ -31,5 +31,4 @@ require({
   ready(function() {
     query('body > .container').forEach(function(n) { n.style.display = 'block'; });
   });
-  
 });

@@ -1,6 +1,8 @@
-package net.iconhub.model
+package net.devkat.lift.jpa
 
 import javax.persistence._
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 
 trait IdPk {
   

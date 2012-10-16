@@ -2,6 +2,7 @@ package net.iconhub.model
 
 import java.util.Date
 import javax.persistence._
+import net.devkat.lift.jpa.IdPk
 
 @Entity
 @NamedQuery(name="Icon.findAll", query="SELECT i FROM Icon i")
