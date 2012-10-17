@@ -26,15 +26,18 @@ class User extends IdPk {
   @Column(nullable = false)
   var email:String = _
   
+  @Column
+  var passwordHash:String = _
+  
+  @Column
+  var passwordSalt:Array[Byte] = _
+  
   @OneToMany
-  var iconSets : java.util.List[IconSet] = new java.util.Vector[IconSet]
+  var iconSets: java.util.List[IconSet] = new java.util.Vector[IconSet]
   
-  def validate: List[FieldError] = Nil
-  
-  /**
-   * Has the user been validated?
-   */
-  def validated_? : Boolean = false
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column
+  var created: java.util.Date
 
   
   /*
@@ -51,7 +54,7 @@ class User extends IdPk {
 
 object User extends User {
   
-  def findById(id:String): Box[User] = {
+  def findById(id:Long): Box[User] = {
     val query = Model.newEM.createNamedQuery("User.findById", ("id", id))
     query.findOne
   }
@@ -60,5 +63,7 @@ object User extends User {
     val query = Model.newEM.createNamedQuery("User.findByEmail", ("email", email))
     query.findOne
   }
+  
+  def findByUsername(username:String): Box[User] = findByEmail(username)
   
 }
