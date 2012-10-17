@@ -1,9 +1,8 @@
 package net.iconhub.model
 
-object Role extends Enumeration with Enumv {
-  val Admin = Value("admin", "Administrator")
-  val User = Value("user", "User")
+import org.squeryl.KeyedEntity
+
+class Role(val name: String) extends KeyedEntity[Int] {
+  val id: Int = 0
 }
 
-class RoleType extends EnumvType(Role) {
-}

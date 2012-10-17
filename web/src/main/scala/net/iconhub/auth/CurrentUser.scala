@@ -9,7 +9,6 @@ import net.liftweb.util.Helpers._
 import net.iconhub.model.User
 import scala.xml._
 import scala.xml.transform._
-import net.devkat.lift.jpa.Model
 
 class CurrentUser(user:User) {
   /*

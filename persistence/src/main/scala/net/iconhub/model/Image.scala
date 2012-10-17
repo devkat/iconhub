@@ -1,24 +1,14 @@
 package net.iconhub.model
 
-import javax.persistence._
-import net.devkat.lift.jpa.IdPk
+import org.squeryl.annotations.Column
 
-@Entity
-class Image extends IdPk {
-  
-  @Column(nullable = false)
-  var mimeType:String = _
-  
-  @Column
-  var width:Int = _
-  
-  @Column
-  var height:Int = _
-  
-  @Column
-  var content:Array[Byte] = _
-
-  @ManyToOne
-  var icon:Icon = _
+class Image (
+    val mimeType: String,
+    val width: Int,
+    val height: Int,
+    val content: Array[Byte],
+    @Column("icon_id")
+    val iconId: Long
+    ) {
 }
 

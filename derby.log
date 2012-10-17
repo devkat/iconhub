@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Wed Oct 17 18:30:38 CEST 2012:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.9.1.0 - (1344872): instance a816c00e-013a-6f8f-fd44-000006116e80 
+on database directory /Volumes/Data/src/iconhub/iconhub/iconhub  with class loader sbt.classpath.ClasspathUtilities$$anon$1@5dc660b8 
+Loaded from file:/Users/nobby/.ivy2/cache/org.apache.derby/derby/jars/derby-10.9.1.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_05-b05
+user.dir=/Volumes/Data/src/iconhub/iconhub
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

@@ -1,0 +1,4 @@
+[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Data/src/iconhub/iconhub/persistence/src/test/resources/META-INF,/Volumes/Data/src/iconhub/iconhub/persistence/target/scala-2.9.1/test-classes/META-INF)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Data/src/iconhub/iconhub/persistence/src/test/resources/META-INF/orm.xml,/Volumes/Data/src/iconhub/iconhub/persistence/target/scala-2.9.1/test-classes/META-INF/orm.xml)[0m
+[0m[[0mdebug[0m] [0m	(/Volumes/Data/src/iconhub/iconhub/persistence/src/test/resources/META-INF/persistence.xml,/Volumes/Data/src/iconhub/iconhub/persistence/target/scala-2.9.1/test-classes/META-INF/persistence.xml)[0m
