@@ -1,23 +1,36 @@
-<div>
-  <wizard:screen_info><div>Page <wizard:screen_number/> of <wizard:total_screens/></div></wizard:screen_info>
-  <wizard:wizard_top> <div> <wizard:bind/> </div> </wizard:wizard_top>
-  <wizard:screen_top> <div> <wizard:bind/> </div> </wizard:screen_top>
-  <wizard:errors> <div> <ul> <wizard:item> <li> <wizard:bind/> </li> </wizard:item> </ul> </div> </wizard:errors>
-  <div> <wizard:fields>
-      <table>
-        <wizard:line>
-          <tr>
-            <td>
-              <wizard:label><label wizard:for=""><wizard:bind/></label></wizard:label>
-	      <wizard:help><span><wizard:bind/></span></wizard:help>
-	      <wizard:field_errors> <ul> <wizard:error> <li> <wizard:bind/> </li> </wizard:error> </ul> </wizard:field_errors>
-          </td>
-          <td> <wizard:form/> </td>
-          </tr>
-        </wizard:line>
-      </table>
-    </wizard:fields> </div>
-  <div> <table> <tr> <td> <wizard:prev/> </td> <td> <wizard:cancel/> </td> <td> <wizard:next/> </td> </tr> </table> </div>
-  <wizard:screen_bottom> <div> <wizard:bind/> </div> </wizard:screen_bottom>
-  <wizard:wizard_bottom> <div> <wizard:bind/> </div> </wizard:wizard_bottom>
+<div> 
+  <wizard:wizard_top> <div> <wizard:bind/> </div> </wizard:wizard_top> 
+  <wizard:screen_top> <legend> <wizard:bind/> </legend> </wizard:screen_top> 
+  <wizard:errors>
+    <ul>
+      <wizard:item>
+        <li><wizard:bind/></li>
+      </wizard:item>
+    </ul>
+  </wizard:errors>
+  <div lift:bind="wizard:fields">
+    <div class="control-group" lift:bind="wizard:line">
+      <wizard:label class="control-label">
+        <label wizard:for=""><wizard:bind></wizard:bind></label>
+      </wizard:label> 
+      <wizard:help><span><wizard:bind></wizard:bind></span></wizard:help>
+      <div class="controls">
+        <wizard:form></wizard:form>
+        <wizard:field_errors>
+          <wizard:error><span class="help-inline"><wizard:bind/></span></wizard:error>
+        </wizard:field_errors> 
+      </div> 
+    </div>
+  </div> 
+  <div class="form-horizontal">
+    <div class="control-group">
+      <div class="controls">
+        <wizard:prev></wizard:prev> 
+        <wizard:cancel></wizard:cancel> 
+        <wizard:next></wizard:next> 
+      </div>
+    </div>
+  </div>
+  <wizard:screen_bottom><div><wizard:bind></wizard:bind></div></wizard:screen_bottom> 
+  <wizard:wizard_bottom><div><wizard:bind></wizard:bind></div></wizard:wizard_bottom> 
 </div>

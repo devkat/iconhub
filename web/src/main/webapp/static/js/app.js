@@ -20,15 +20,17 @@ require({
   'dojo/parser',
   'dojo/ready',
   'dojo/query',
-  'iconhub/menubar'
+  'iconhub/menubar',
+  'iconhub/bootstrap'
 ], function(
   parser,
   ready,
   query,
-  menubar)
+  menubar,
+  bootstrap)
 {
-  
   ready(function() {
     query('body > .container').forEach(function(n) { n.style.display = 'block'; });
+    parser.parse();
   });
 });

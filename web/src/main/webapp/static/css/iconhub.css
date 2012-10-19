@@ -38,6 +38,10 @@ h1.iconhub-logo a:hover {
   text-decoration: none;
 }
 
+h2 {
+  font-weight: normal;
+}
+
 .lead {
   margin-left: 1em;
 }
@@ -86,4 +90,10 @@ span.iconhub-logo-hub {
 #content ul,
 #content ol {
   font-size: 16px;
+}
+
+#lift__noticesContainer__ {
+  /*
+  display: none;
+  */
 }

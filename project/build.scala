@@ -1,15 +1,9 @@
 import sbt._, Keys._
 
 object BuildSettings {
-  val buildOrganization = "net.iconhub"
-  val buildVersion      = "1.0-SNAPSHOT"
   val buildScalaVersion = "2.9.1"
 
   val buildSettings = Defaults.defaultSettings ++ Seq (
-    organization := buildOrganization,
-    version      := buildVersion,
-    scalaVersion := buildScalaVersion,
-    scalaVersion := "2.9.1",
     scalacOptions += "-deprecation",
     crossScalaVersions := Seq("2.8.1", "2.9.0", "2.9.0-1", "2.9.1", "2.9.2"),
     resolvers ++= Seq(
@@ -59,7 +53,7 @@ object BuildSettings {
 
 object IconhubBuild extends Build {
 
-  val liftVersion = "2.5-M1"
+  val liftVersion = "2.4"
 
   lazy val root = Project("iconhub-root", file("."),
     settings = BuildSettings.buildSettings ++ Seq(
@@ -78,6 +72,7 @@ object IconhubBuild extends Build {
         "org.apache.derby" % "derby" % "10.9.1.0"
       )
     )
+    ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
   )
   
   lazy val web: Project = Project("iconhub-web", file("web"), 
@@ -85,12 +80,19 @@ object IconhubBuild extends Build {
       libraryDependencies ++= Seq(
         "net.liftweb" %% "lift-webkit" % liftVersion,
         "net.liftweb" %% "lift-openid" % "2.4",
-        "eu.getintheloop" %% "lift-shiro" % "0.0.6-SNAPSHOT",
-        "org.mortbay.jetty" % "jetty" % "6.1.25",
+        "net.liftweb" %% "lift-squeryl-record" % liftVersion,
+        "eu.getintheloop" %% "lift-shiro" % "0.0.5",
+        "commons-collections" % "commons-collections" % "3.2.1",
+        //"commons-beanutils" % "commons-beanutils" % "20030211.134440",
+        "org.mortbay.jetty" % "jetty" % "6.1.25" % "test,container",
+        "postgresql" % "postgresql" % "9.1-901.jdbc4",
+        "ch.qos.logback" % "logback-classic" % "1.0.6",
         "junit" % "junit" % "4.10" % "test",
         "org.scala-tools.testing" %% "specs" % "1.6.9" % "test"
       )
     )
+    ++ com.github.siasia.WebPlugin.webSettings
+    ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
   ) dependsOn(persistence)
   
 }
