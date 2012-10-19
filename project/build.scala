@@ -79,7 +79,7 @@ object IconhubBuild extends Build {
     settings = BuildSettings.buildSettings ++ (
       libraryDependencies ++= Seq(
         "net.liftweb" %% "lift-webkit" % liftVersion,
-        "net.liftweb" %% "lift-openid" % "2.4",
+//        "net.liftweb" %% "lift-openid" % "2.4",
         "net.liftweb" %% "lift-squeryl-record" % liftVersion,
         "eu.getintheloop" %% "lift-shiro" % "0.0.5",
         "commons-collections" % "commons-collections" % "3.2.1",

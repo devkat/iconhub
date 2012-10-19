@@ -7,10 +7,8 @@ import _root_.net.liftweb.http.provider._
 import _root_.net.liftweb.sitemap._
 import _root_.net.liftweb.sitemap.Loc._
 import Helpers._
-import _root_.net.liftweb.mapper.{ DB, ConnectionManager, Schemifier, DefaultConnectionIdentifier, StandardDBVendor }
 import _root_.java.sql.{ Connection, DriverManager }
 import _root_.net.iconhub.model._
-import net.iconhub.openid.DefaultOpenIDVendor
 import net.iconhub.model.User
 import shiro.Shiro
 import shiro.sitemap.Locs._
@@ -50,8 +48,6 @@ class Boot {
 
     LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent))
     //LiftRules.loggedInTest = Full(() => User.loggedIn_?)
-    LiftRules.dispatch.append(DefaultOpenIDVendor.dispatchPF)
-    LiftRules.snippets.append(DefaultOpenIDVendor.snippetPF)
 
     LiftRules.addToPackages("eu.getintheloop") // Shiro
     LiftRules.addToPackages("net.iconhub")
