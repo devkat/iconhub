@@ -9,7 +9,6 @@ import _root_.net.liftweb.sitemap.Loc._
 import Helpers._
 import _root_.java.sql.{ Connection, DriverManager }
 import _root_.net.iconhub.model._
-import net.iconhub.model.User
 import shiro.Shiro
 import shiro.sitemap.Locs._
 import net.liftweb.squerylrecord.RecordTypeMode._

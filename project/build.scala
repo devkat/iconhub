@@ -86,6 +86,7 @@ object IconhubBuild extends Build {
         //"commons-beanutils" % "commons-beanutils" % "20030211.134440",
         "org.mortbay.jetty" % "jetty" % "6.1.25" % "test,container",
         "postgresql" % "postgresql" % "9.1-901.jdbc4",
+        "commons-logging" % "commons-logging" % "1.1.1",
         "ch.qos.logback" % "logback-classic" % "1.0.6",
         "junit" % "junit" % "4.10" % "test",
         "org.scala-tools.testing" %% "specs" % "1.6.9" % "test"

@@ -6,9 +6,9 @@ import net.liftweb.sitemap._
 import net.liftweb.sitemap.Loc._
 import net.liftweb.util._
 import net.liftweb.util.Helpers._
-import net.iconhub.model.User
 import scala.xml._
 import scala.xml.transform._
+import net.iconhub.model.User
 
 class CurrentUser(user:User) {
   /*
