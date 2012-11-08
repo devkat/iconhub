@@ -1,4 +1,5 @@
 import sbt._, Keys._
+import atd.sbtliquibase.LiquibasePlugin._
 
 object BuildSettings {
   val buildScalaVersion = "2.9.1"
@@ -53,7 +54,7 @@ object BuildSettings {
 
 object IconhubBuild extends Build {
 
-  val liftVersion = "2.4"
+  val liftVersion = "2.5-M2"
 
   lazy val root = Project("iconhub-root", file("."),
     settings = BuildSettings.buildSettings ++ Seq(
@@ -79,9 +80,10 @@ object IconhubBuild extends Build {
     settings = BuildSettings.buildSettings ++ (
       libraryDependencies ++= Seq(
         "net.liftweb" %% "lift-webkit" % liftVersion,
-//        "net.liftweb" %% "lift-openid" % "2.4",
+        //"net.liftmodules" %% "lift-openid" % liftVersion % "compile->default",
+        "net.liftmodules" %% "openid" % "2.5-M1-1.1" excludeAll(ExclusionRule(organization = "net.liftweb")),
         "net.liftweb" %% "lift-squeryl-record" % liftVersion,
-        "eu.getintheloop" %% "lift-shiro" % "0.0.5",
+        "eu.getintheloop" %% "lift-shiro" % "0.0.6-SNAPSHOT",
         "commons-collections" % "commons-collections" % "3.2.1",
         //"commons-beanutils" % "commons-beanutils" % "20030211.134440",
         "org.mortbay.jetty" % "jetty" % "6.1.25" % "test,container",
@@ -94,6 +96,13 @@ object IconhubBuild extends Build {
     )
     ++ com.github.siasia.WebPlugin.webSettings
     ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
+    ++ liquibaseSettings ++ Seq (
+      liquibaseUrl := "jdbc:postgresql:iconhub",
+      liquibaseDriver := "org.postgresql.Driver",
+      liquibaseUsername := "iconhub",
+      liquibasePassword := "iconhub",
+      liquibaseChangelog := "web/src/main/migrations/changelog.xml"
+    )
   ) dependsOn(persistence)
   
 }

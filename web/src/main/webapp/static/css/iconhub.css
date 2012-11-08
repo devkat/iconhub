@@ -16,22 +16,31 @@ Share
 @import url(http://fonts.googleapis.com/css?family=Muli);
 @import url(http://fonts.googleapis.com/css?family=Squada+One);
 @import url('http://fonts.googleapis.com/css?family=Signika+Negative');
+@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
 
 body {
-  font-family: 'Muli', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 body > .container {
-  padding-top: 80px;
+}
+
+header {
+  padding-top: 60px;
+  /*
+  border-bottom: solid 5px #CCCCCC;
+  */
 }
 
 .jumbotron h1.iconhub-logo {
   font-family: 'Squada One';
-  font-size: 60px;
+  font-size: 50px;
   margin: 0;
   letter-spacing: 1pt;
   font-weight: normal;
   display: inline;
+  position: relative;
+  left: -2px;
 }
 
 h1.iconhub-logo a:hover {
@@ -46,7 +55,7 @@ h2 {
   margin-left: 1em;
 }
 
-span.iconhub-logo-icon{
+span.iconhub-logo-icon {
   color: #333333;
 }
 
@@ -70,7 +79,6 @@ span.iconhub-logo-hub {
 #content p,
 #content ul,
 #content ol {
-  font-family: Palatino,Georgia,"Times New Roman",Times,serif;
 }
 
 #content h2 {
@@ -96,4 +104,26 @@ span.iconhub-logo-hub {
   /*
   display: none;
   */
+}
+
+.form-hidden-labels label {
+  display: none;
+}
+
+input {
+  font-family: 'Source Sans Pro',sans-serif;
+}
+
+#lift__noticesContainer__ ul {
+  font-family: 'Source Sans Pro',sans-serif;
+  margin-left: 0;
+}
+
+#lift__noticesContainer__ li {
+  list-style-type: none;
+  color: #B94A48;
+}
+
+a.signup {
+  margin-left: 1em;
 }

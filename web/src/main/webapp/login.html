@@ -1,6 +1,19 @@
 <lift:surround with="default" at="content">
-  <legend>Login</legend>
+
+  <head_merge>
+    <link type="text/css" rel="stylesheet" href="/static/vendor/openid/openid-shadow.css"></link>
+    <script type="text/javascript" src="/static/vendor/openid/openid-jquery.js"></script>
+    <script type="text/javascript" src="/static/vendor/openid/openid-en.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        openid.init('openid_identifier');
+        //openid.setDemoMode(true); //Stops form submission for client javascript-only test purposes
+      });
+    </script>
+  </head_merge>
+
   <form lift="login?form=post" class="form-horizontal">
+    <legend>Login with your iconhub account</legend>
     <div class="control-group">
       <label class="control-label">Username:</label>
       <div class="controls">
@@ -19,4 +32,32 @@
       </div>
     </div>
   </form>
+  
+  <!--
+  <lift:open_id.form/>
+  -->
+  
+    <form action="/openid/login" method="post" id="openid_form">
+      <fieldset>
+        <legend>Login with an external account</legend>
+        <div id="openid_choice">
+          <div id="openid_btns"></div>
+        </div>
+        <div id="openid_input_area">
+          <input id="openid_identifier" name="openid_identifier"
+            type="text" value="https://www.google.com/accounts/o8/id" />
+          <input id="openid_submit" type="submit" value="Sign-In" />
+        </div>
+        <noscript>
+          <p>
+            OpenID is service that allows you to log-on to many different
+            websites using a single identity. Find out <a
+              href="http://openid.net/what/">more about OpenID</a> and <a
+              href="http://openid.net/get/">how to get an OpenID
+              enabled account</a>.
+          </p>
+        </noscript>
+      </fieldset>
+    </form>
+  
 </lift:surround>
