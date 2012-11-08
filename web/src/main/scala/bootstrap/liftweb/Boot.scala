@@ -16,6 +16,8 @@ import net.liftweb.squerylrecord.SquerylRecord
 import org.squeryl.Session
 import org.squeryl.adapters.PostgreSqlAdapter
 import java.util.Locale
+import net.iconhub.auth.IconhubOpenIdVendor
+import net.iconhub.sitemap.IconSetLoc
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -41,7 +43,15 @@ class Boot {
     }
     */
     
-    LiftRules.localeCalculator = (_) => new Locale("en_US")
+    LiftRules.resourceNames = "iconhub" :: Nil
+    LiftRules.localeCalculator = (_) => Locale.ENGLISH
+    LiftRules.dispatch.append(IconhubOpenIdVendor.dispatchPF) 
+    LiftRules.snippets.append(IconhubOpenIdVendor.snippetPF)
+    
+    val staticFiles: PartialFunction[Req, Boolean] = {
+      case Req("static" :: _, _, _) => false
+    }
+    LiftRules.liftRequest.append(staticFiles)
 
     Shiro.init()
 
@@ -52,12 +62,22 @@ class Boot {
     LiftRules.addToPackages("net.iconhub")
 
     LiftRules.setSiteMap(SiteMap(List(
-      Menu("Home") / "index" >> Loc.Hidden,
-      Menu("Role Test") / "restricted" >> RequireAuthentication >> HasRole("admin"),
-      Menu("Login") / "login" >> DefaultLogin >> RequireNoAuthentication,
-      Menu("Sign up") / "signup" >> RequireNoAuthentication,
-      Menu("My Icons") / "icons" >> RequireAuthentication,
-      Menu("About") / "about" >> Hidden >> LocGroup("footer")) ::: Shiro.menus: _*))
+      Menu("Home") / "index" >> DefaultLogin >> Loc.Hidden,
+      //Menu("Role Test") / "restricted" >> RequireAuthentication >> HasRole("admin"),
+      Menu("Login") / "login" >> DefaultLogin >> RequireNoAuthentication >> Loc.Hidden,
+      Menu("Sign up") / "signup" >> RequireNoAuthentication >> Loc.Hidden,
+      Menu("My icons") / "my" / "icons" >> RequireAuthentication submenus(
+        Menu("Create") / "my" / "icons" / "create" >> RequireAuthentication
+      ),
+      Menu("My sets") / "my" / "sets" >> RequireAuthentication submenus(
+        Menu("Create") / "my" / "sets" / "create" >> RequireAuthentication
+      ),
+      Menu(IconSetLoc), // >> RequireAuthentication
+      Menu("About") / "about" >> Hidden >> LocGroup("footer"),
+      Menu("Static") / "static" / ** >> Hidden
+      )
+      ::: Shiro.menus: _*)
+    )
 
     /*
      * Show the spinny image when an Ajax call starts

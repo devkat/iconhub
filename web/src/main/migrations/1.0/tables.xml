@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+  <changeSet id="1" author="devkat">
+    <createTable tableName="users">
+      <column name="id" type="bigint" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="email" type="varchar(50)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="password_hash" type="varchar(128)"/>
+      <column name="password_salt" type="bytea"/>
+      <column name="created" type="${type.timestamp}">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+    
+    <createTable tableName="icon">
+      <column name="id" type="bigint" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(256)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="slug" type="varchar(128)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="created" type="${type.timestamp}">
+        <constraints nullable="false"/>
+      </column>
+      <column name="owner_id" type="bigint">
+        <constraints nullable="false" references="users(id)" foreignKeyName="fk_icon__user"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="iconset">
+      <column name="id" type="bigint" autoIncrement="true" >
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(256)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="slug" type="varchar(128)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="created" type="${type.timestamp}">
+        <constraints nullable="false"/>
+      </column>
+      <column name="is_public" type="boolean" defaultValueBoolean="false">
+        <constraints nullable="false"/>
+      </column>
+      <column name="owner_id" type="bigint">
+        <constraints nullable="false" references="users(id)" foreignKeyName="fk_iconset__user"/>
+      </column>
+    </createTable>
+    
+    <createTable tableName="role">
+      <column name="id" type="int" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(30)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+    </createTable>
+    
+    <createTable tableName="image">
+      <column name="id" type="bigint" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(256)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="slug" type="varchar(128)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="created" type="${type.timestamp}">
+        <constraints nullable="false"/>
+      </column>
+      <column name="content" type="bytea">
+        <constraints nullable="false"/>
+      </column>
+      <column name="icon_id" type="bigint">
+        <constraints nullable="false" references="icon(id)" foreignKeyName="fk_image__icon"/>
+      </column>
+    </createTable>
+    
+    <createTable tableName="iconset_to_icon">
+      <column name="iconset_id" type="bigint">
+        <constraints primaryKey="true" references="iconset(id)" foreignKeyName="fk_incoset_to_icon__iconset"/>
+      </column>
+      <column name="icon_id" type="bigint">
+        <constraints primaryKey="true" references="icon(id)" foreignKeyName="fk_incoset_to_icon__icon"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="user_to_role">
+      <column name="user_id" type="bigint" autoIncrement="true">
+        <constraints primaryKey="true" references="iconset(id)" foreignKeyName="fk_user_to_role__user"/>
+      </column>
+      <column name="role_id" type="int">
+        <constraints primaryKey="true" references="icon(id)" foreignKeyName="fk_user_to_role__role"/>
+      </column>
+    </createTable>
+ 
+  </changeSet>
+
+</databaseChangeLog>

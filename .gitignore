@@ -1,12 +1,17 @@
 .classpath.bak
 .project
 .classpath
+derby.log
+project/target
+persistence/.classpath
 persistence/iconhub/log
 persistence/iconhub/seg0
 persistence/iconhub/service.properties
 persistence/iconhub/db.lck
 persistence/iconhub/dbex.lck
+persistence/target
 web/.settings
 web/.externalToolBuilders
 web/lift_proto.db.trace.db
 web/lift_proto.db.h2.db
+web/target
