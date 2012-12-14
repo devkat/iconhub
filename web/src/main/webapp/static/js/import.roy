@@ -12,25 +12,24 @@ define ['dojo/_base/xhr', 'dojo/on', 'dojo/dom', 'dojo/dom-construct', "dojo/_ba
   let parse uri = (do ajaxRequest
     images <- { url: "/api/imagescraper", content: { uri: uri } }
     let container = dom.byId "images"
-    array.forEach images (\img ->
-      let node = domConstruct.create "img" { src: img }
-      let li = domConstruct.create "li"
-      li.appendChild node
-      container.appendChild li
+    let nodes = array.map images (\image ->
+      let img = domConstruct.create "img" { src: image.url }
+      let imgContainer = domConstruct.create "div" { className: "image-wrapper" }
+      imgContainer.appendChild img
+      let block = domConstruct.create "div" { className: "span4 image-block" }
+      block.appendChild imgContainer
+      if image.title != undefined then
+        (block.appendChild (domConstruct.create "span" { innerHTML: image.title, className: "image-title" }))
+      else
+        ""
+      block
     )
+    array.forEach nodes (\node -> container.appendChild node)
   )
 
   on (dom.byId "uri") "change" (\evt ->
     let uri = evt.target.value
     if uri == "" then null else (parse uri)
   )
-
-  let v = (do ajaxRequest
-    value <- { url: 'https://www.google.com/search?hl=en&q=kittens&um=1&ie=UTF-8&tbm=isch&source=og&sa=N&tab=wi&ei=GQ3KUOepE4WD4gTI7QE&biw=1680&bih=896&sei=JA3KULPgFJP64QSbj4DoBQ' }
-    console.log value
-    return value
-  )
-  
-  console.log v
 
 )

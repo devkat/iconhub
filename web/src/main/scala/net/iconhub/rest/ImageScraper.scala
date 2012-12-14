@@ -19,17 +19,30 @@ object ImageScraper extends RestHelper {
     
   })
   
+  def title(img:Node) = (img \\ "@alt").text
+  
+    
   def getImages(uri:String): JValue = {
     val baseUrl = new URL(uri)
     
     val html = Http(url(uri) OK as.String)
-    val sources:Seq[String] = Html5.parse(html()) match {
-      case Full(xml) => (xml \\ "img" \\ "@src") map (_.text)
+    val images:Seq[JObject] = Html5.parse(html()) match {
+      case Full(xml) => for {
+        img <- xml \\ "img"
+        src <- img \ "@src"
+      } yield {
+        JObject(
+          List(
+            JField("url", JString(new URL(baseUrl, src.text).toString))
+          ) ++ (img.attribute("alt") match {
+            case Some(x) => List(JField("title", JString(x.text)))
+            case _ => Nil
+          })
+        )
+      }
       case _ => Nil
     }
-    JArray(sources.toList
-        map (url => new URL(baseUrl, url).toString)
-        map (src => JString(src)))
+    JArray(images.toList)
   }
   
 }
