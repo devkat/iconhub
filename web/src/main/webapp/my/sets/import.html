@@ -1,0 +1,25 @@
+<lift:surround with="default" at="content">
+  <head_merge>
+    <script type="text/javascript">
+    require(['iconhub/import'], function(imp) {
+    });
+    </script>
+  </head_merge>
+  
+  <h2>Import icon set from web page</h2>
+  
+  <form class="form-horizontal">
+  
+    <legend>Please enter the URI of the web page you want to import icons from.</legend>
+    <div class="control-group">
+      <label class="control-label">URI:</label>
+      <div class="controls">
+        <input id="uri" type="text" class="input-xxlarge"/>
+      </div>
+      <ul id="images">
+      </ul>
+    </div>
+  
+  </form>
+  
+</lift:surround>

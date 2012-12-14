@@ -58,7 +58,6 @@ define([
           });
         });
 
-        console.log(domAttr.get(li, 'class') + " " + li.innerHTML);
         if (li.id === 'selectedMenu') {
           props.selected = true;
         }

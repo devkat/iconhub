@@ -18,6 +18,7 @@ import org.squeryl.adapters.PostgreSqlAdapter
 import java.util.Locale
 import net.iconhub.auth.IconhubOpenIdVendor
 import net.iconhub.sitemap.IconSetLoc
+import net.iconhub.rest.ImageScraper
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -45,8 +46,9 @@ class Boot {
     
     LiftRules.resourceNames = "iconhub" :: Nil
     LiftRules.localeCalculator = (_) => Locale.ENGLISH
-    LiftRules.dispatch.append(IconhubOpenIdVendor.dispatchPF) 
+    LiftRules.dispatch.append(IconhubOpenIdVendor.dispatchPF)
     LiftRules.snippets.append(IconhubOpenIdVendor.snippetPF)
+    LiftRules.statelessDispatch.append(ImageScraper)
     
     val staticFiles: PartialFunction[Req, Boolean] = {
       case Req("static" :: _, _, _) => false
@@ -58,19 +60,21 @@ class Boot {
     LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent))
     //LiftRules.loggedInTest = Full(() => User.loggedIn_?)
 
-    LiftRules.addToPackages("eu.getintheloop") // Shiro
+    //LiftRules.addToPackages("eu.getintheloop") // Shiro
     LiftRules.addToPackages("net.iconhub")
+    LiftRules.addToPackages("shiro")
 
     LiftRules.setSiteMap(SiteMap(List(
       Menu("Home") / "index" >> DefaultLogin >> Loc.Hidden,
       //Menu("Role Test") / "restricted" >> RequireAuthentication >> HasRole("admin"),
-      Menu("Login") / "login" >> DefaultLogin >> RequireNoAuthentication >> Loc.Hidden,
+      Menu("Login") / "login" >> DefaultLogin >> RequireNoAuthentication,
       Menu("Sign up") / "signup" >> RequireNoAuthentication >> Loc.Hidden,
       Menu("My icons") / "my" / "icons" >> RequireAuthentication submenus(
         Menu("Create") / "my" / "icons" / "create" >> RequireAuthentication
       ),
       Menu("My sets") / "my" / "sets" >> RequireAuthentication submenus(
-        Menu("Create") / "my" / "sets" / "create" >> RequireAuthentication
+        Menu("Create") / "my" / "sets" / "create" >> RequireAuthentication,
+        Menu("Import") / "my" / "sets" / "import" >> RequireAuthentication
       ),
       Menu(IconSetLoc), // >> RequireAuthentication
       Menu("About") / "about" >> Hidden >> LocGroup("footer"),

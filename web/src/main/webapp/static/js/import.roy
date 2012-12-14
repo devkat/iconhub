@@ -1,0 +1,36 @@
+type Content = { uri: String }
+type Request = { url: String, content: Content }
+
+define ['dojo/_base/xhr', 'dojo/on', 'dojo/dom', 'dojo/dom-construct', "dojo/_base/array"] (\xhr on dom domConstruct array ->
+
+  let ajaxRequest = {
+    return: \x -> x
+    bind: \(x : Request) f ->
+      xhr.get { url: x.url, content: x.content, handleAs: "json", load: f }
+  }
+
+  let parse uri = (do ajaxRequest
+    images <- { url: "/api/imagescraper", content: { uri: uri } }
+    let container = dom.byId "images"
+    array.forEach images (\img ->
+      let node = domConstruct.create "img" { src: img }
+      let li = domConstruct.create "li"
+      li.appendChild node
+      container.appendChild li
+    )
+  )
+
+  on (dom.byId "uri") "change" (\evt ->
+    let uri = evt.target.value
+    if uri == "" then null else (parse uri)
+  )
+
+  let v = (do ajaxRequest
+    value <- { url: 'https://www.google.com/search?hl=en&q=kittens&um=1&ie=UTF-8&tbm=isch&source=og&sa=N&tab=wi&ei=GQ3KUOepE4WD4gTI7QE&biw=1680&bih=896&sei=JA3KULPgFJP64QSbj4DoBQ' }
+    console.log value
+    return value
+  )
+  
+  console.log v
+
+)

@@ -1,60 +1,61 @@
 <div class="lift:surround?with=default;at=content">
 
-<div class="row">
-  <div class="span8">
-    <div class="row">
-      <div class="span2">
-        <h3>Explore</h3>
-        <p>
-        Browse icon sets based on tags and ratings.
-        </p>
+  <div class="row">
+    <div class="span8">
+      <div class="row">
+        <div class="span2">
+          <h3>Explore</h3>
+          <p>
+          Browse icon sets based on tags and ratings.
+          </p>
+        </div>
+        <div class="span2">
+          <h3>Embed</h3>
+          <p>
+          Embed the CSS for the icon set you want to use.
+          </p>
+        </div>
+        <div class="span2">
+          <h3>Create</h3>
+          <p>
+          Upload icons or design icons online. iconhub supports SVG and PNG.
+          </p>
+        </div>
+        <div class="span2">
+          <h3>Share</h3>
+          <p>
+          Allow others to use your icons on their websites.
+          </p>
+        </div>
       </div>
-      <div class="span2">
-        <h3>Embed</h3>
-        <p>
-        Embed the CSS for the icon set you want to use.
-        </p>
-      </div>
-      <div class="span2">
-        <h3>Create</h3>
-        <p>
-        Upload icons or design icons online. iconhub supports SVG and PNG.
-        </p>
-      </div>
-      <div class="span2">
-        <h3>Share</h3>
-        <p>
-        Allow others to use your icons on their websites.
-        </p>
+    </div>
+    <div class="span4">
+      <div data-lift="IsNotAuthenticated">
+        <form lift="login?form=post" class="form form-hidden-labels">
+          <legend>Log in with your iconhub account</legend>
+          <span data-lift="Msgs?showAll=true"></span>
+          <div class="control-group">
+            <label class="control-label">E-mail address:</label>
+            <div class="controls">
+              <input type="text" class="span4" placeholder="E-mail address"/>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Password:</label>
+            <div class="controls">
+              <input type="password" class="span4" placeholder="Password"/>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <input class="btn" type="submit" value="login" />
+              <a href="signup" class="signup">Sign up</a>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <div class="span4">
-    <lift:Auth.loggedIn>
-      <form lift="login?form=post" class="form form-hidden-labels">
-        <legend>Log in with your iconhub account</legend>
-        <span class="lift:Msgs?showAll=true"></span>
-        <div class="control-group">
-          <label class="control-label">E-mail address:</label>
-          <div class="controls">
-            <input type="text" class="span4" placeholder="E-mail address"/>
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label">Password:</label>
-          <div class="controls">
-            <input type="password" class="span4" placeholder="Password"/>
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <input class="btn" type="submit" value="login" />
-            <a href="signup" class="signup">Sign up</a>
-          </div>
-        </div>
-      </form>
-    </lift:Auth.loggedIn>
-  </div>
-</div>
+  
 </div>
 

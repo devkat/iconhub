@@ -22,8 +22,24 @@
       src="//ajax.googleapis.com/ajax/libs/dojo/1.8.0/dojo/dojo.js"></script>
     <link href="//ajax.googleapis.com/ajax/libs/dojo/1.8.0/dijit/themes/dijit.css" type="text/css" rel="stylesheet"></link>
      -->
-    <script type="text/javascript" data-dojo-config="async: true, tlmSiblingOfDojo: false, isDebug: true"
-      src="/static/vendor/dojo/1.8.1/dojo/dojo.js"></script>
+    <script type="text/javascript">
+    var dojoConfig = {
+        async: true,
+        isDebug: true,
+        dojoBlankHtmlUrl: '/static/vendor/dojo/1.8.1/dojo/blank.html',
+        tlmSiblingOfDojo: false,
+        parseOnLoad: true,
+        packages: [
+          { name: 'dojo', location: '/static/vendor/dojo/1.8.1/dojo' },
+          { name: 'dijit', location: '/static/vendor/dojo/1.8.1/dijit' },
+          { name: 'dojox', location: '/static/vendor/dojo/1.8.1/dojox' },
+          { name: "put-selector", location: '/static/vendor/put-selector' },
+          { name: "xstyle", location: '/static/vendor/xstyle' },
+          { name: 'iconhub', location: '/static/js'}
+        ]
+    };
+    </script>
+    <script type="text/javascript" src="/static/vendor/dojo/1.8.1/dojo/dojo.js"></script>
     <link href="/static/vendor/dojo/1.8.1/dijit/themes/dijit.css" type="text/css" rel="stylesheet"></link>
     
     <script type="text/javascript" src="/static/js/app.js"></script>

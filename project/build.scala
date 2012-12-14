@@ -1,5 +1,10 @@
 import sbt._, Keys._
 import atd.sbtliquibase.LiquibasePlugin._
+import net.devkat.sbtroy.RoyPlugin._
+import net.devkat.sbtroy.RoyPlugin.RoyKeys._
+import net.devkat.sbtroy.RoyPlugin.PathFilter
+import com.github.siasia.WebPlugin._
+import com.github.siasia.PluginKeys._
 
 object BuildSettings {
   val buildScalaVersion = "2.9.1"
@@ -84,6 +89,7 @@ object IconhubBuild extends Build {
         "net.liftmodules" %% "openid" % "2.5-M1-1.1" excludeAll(ExclusionRule(organization = "net.liftweb")),
         "net.liftweb" %% "lift-squeryl-record" % liftVersion,
         "eu.getintheloop" %% "lift-shiro" % "0.0.6-SNAPSHOT",
+        "net.databinder.dispatch" %% "dispatch-core" % "0.9.4",
         "commons-collections" % "commons-collections" % "3.2.1",
         //"commons-beanutils" % "commons-beanutils" % "20030211.134440",
         "org.mortbay.jetty" % "jetty" % "6.1.25" % "test,container",
@@ -94,7 +100,9 @@ object IconhubBuild extends Build {
         "org.scala-tools.testing" %% "specs" % "1.6.9" % "test"
       )
     )
-    ++ com.github.siasia.WebPlugin.webSettings
+    ++ webSettings ++ Seq(
+      (webappResources in Compile) <+= (resourceManaged in Compile) apply { r => file(r.getAbsolutePath() + "/webapp")}
+    )
     ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
     ++ liquibaseSettings ++ Seq (
       liquibaseUrl := "jdbc:postgresql:iconhub",
@@ -102,6 +110,9 @@ object IconhubBuild extends Build {
       liquibaseUsername := "iconhub",
       liquibasePassword := "iconhub",
       liquibaseChangelog := "web/src/main/migrations/changelog.xml"
+    )
+    ++ roySettings ++ Seq(
+      royExcludeFilter in Compile += new PathFilter("**/vendor/roy/**")
     )
   ) dependsOn(persistence)
   

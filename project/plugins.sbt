@@ -10,3 +10,7 @@ addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.6.0")
 
 addSbtPlugin("atd" % "sbt-liquibase" % "0.4")
 
+autoCompilerPlugins := true
+
+addSbtPlugin("net.devkat" %% "roy-sbt-plugin" % "0.1")
+
