@@ -1,13 +1,18 @@
 type Content = { uri: String }
 type Request = { url: String, content: Content }
 
-define ['dojo/_base/xhr', 'dojo/on', 'dojo/dom', 'dojo/dom-construct', "dojo/_base/array"] (\xhr on dom domConstruct array ->
+define ['./factory', 'dojo/_base/xhr', 'dojo/on', 'dojo/dom', 'dojo/dom-construct', "dojo/_base/array", "dojox/form/RangeSlider"] (\Factory xhr on dom domConstruct array RangeSlider ->
 
   let ajaxRequest = {
     return: \x -> x
     bind: \(x : Request) f ->
       xhr.get { url: x.url, content: x.content, handleAs: "json", load: f }
   }
+  
+  let absMin = 1
+  let absMax = 128
+  let min = 16
+  let max = 32
 
   let parse uri = (do ajaxRequest
     images <- { url: "/api/imagescraper", content: { uri: uri } }
@@ -25,6 +30,13 @@ define ['dojo/_base/xhr', 'dojo/on', 'dojo/dom', 'dojo/dom-construct', "dojo/_ba
       block
     )
     array.forEach nodes (\node -> container.appendChild node)
+    let args = {
+      value: [min, max]
+      minimum: absMin
+      maximum: absMax
+      style: "width: 300px"
+    }
+    Factory.create dojox.form.HorizontalRangeSlider [args, "slider"]
   )
 
   on (dom.byId "uri") "change" (\evt ->
