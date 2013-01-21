@@ -42,6 +42,7 @@
     <script type="text/javascript" src="/static/vendor/dojo/1.8.1/dojo/dojo.js"></script>
     <link href="/static/vendor/dojo/1.8.1/dijit/themes/dijit.css" type="text/css" rel="stylesheet"></link>
     <link href="/static/vendor/dojo/1.8.1/dijit/themes/claro/claro.css" type="text/css" rel="stylesheet"></link>
+    <script type="text/javascript" src="/static/vendor/underscore/underscore-1.4.3.min.js"></script>
     
     <script type="text/javascript" src="/static/js/app.js"></script>
     
@@ -52,22 +53,22 @@
      -->
     <link href="/static/vendor/bootstrap/2.2.1/css/bootstrap.min.css" rel="stylesheet"></link>
     <script src="/static/vendor/bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/vendor/fontawesome/css/font-awesome.min.css"></link>
     
     <!-- Local -->
-    <link href="/static/vendor/dbootstrap/theme/dbootstrap.css" type="text/css" rel="stylesheet"></link>
-    <link rel="stylesheet" href="/static/css/iconhub.css" type="text/css" media="screen" title="no title" charset="utf-8"></link>
     <!-- 
+    <link href="/static/vendor/dbootstrap/theme/dbootstrap.css" type="text/css" rel="stylesheet"></link>
     <link rel="stylesheet" href="/static/vendor/bootswatch/spacelab/bootstrap.min.css"></link>
     <link rel="stylesheet" href="/static/vendor/bootswatch/docs.css"></link>
      -->
-    <link rel="stylesheet" href="/static/css/iconhub.css"></link>
+    <link rel="stylesheet" href="/static/css/iconhub.css" type="text/css" media="screen" title="no title" charset="utf-8"></link>
     
   </head>
   <body class="bootstrap claro">
-  
     <div class="container" style="display: none">
     
       <header id="overview" class="jumbotron subhead">
+        <!--
         <div class="row">
           <div class="span12">
             <h1 class="iconhub-logo">
@@ -78,15 +79,23 @@
             <span class="lead">Find, use, create and share icons.</span>
           </div>
         </div>
-        <lift:Menu.builder
+         -->
+        <div class="row" id="iconhub-menu-row">
+          <div class="span12">
+            <lift:Menu.builder
               li_item:id="selectedMenu"
               top:id="iconhub-menu"
               expandAll="true"/>
+          </div>
+        </div>
+        <div class="row" id="iconhub-submenu-row">
+          <div class="span12"></div>
+        </div>
       </header>
   
-      <div class="row">
-        <div class="span12">
-          <div id="content" ><!-- The HTML content will go here --></div>
+      <div id="content-wrapper">
+        <div id="content">
+          <!-- The HTML content will go here -->
         </div>
       </div>
 

@@ -1,10 +1,12 @@
 define([
   'dojo/_base/lang',
+  'dojo/_base/fx',
   'dojo/ready',
   'dojo/query',
   'dojo/dom-attr',
   'dojo/dom-construct',
   'dojo/dom-class',
+  'dojo/on',
   "dijit/MenuBar",
   "dijit/MenuBarItem",
   "dijit/DropDownMenu",
@@ -15,11 +17,13 @@ define([
 
 ], function(
   lang,
+  fx,
   ready,
   query,
   domAttr,
   domConstruct,
   domClass,
+  on,
   MenuBar,
   MenuBarItem,
   DropDownMenu,
@@ -47,28 +51,41 @@ define([
 
       query('> li', menuBarNode).forEach(function(li) {
         var
-          dropDown = null,
           props = getLinkProps(li);
           
-        query('ul', li).forEach(function(ul) {
-          dropDown = new DropDownMenu();
-          query('li', ul).forEach(function(li) {
-            var props = getLinkProps(li);
-            dropDown.addChild(new MenuItem(props));
-          });
-        });
-
-        if (li.id === 'selectedMenu') {
+        if (li.id === 'selectedMenu' || query('li[id="selectedMenu"]', li).length > 0) {
           props.selected = true;
         }
-        var menu = dropDown ? new PopupMenuBarItem(lang.mixin(props, { popup: dropDown})) : new MenuBarItem(props);
-        /*
-        if (submenu) {
-          domClass.add(menu, 'dropdown');
-        }
-        */
+
+        var menuItem = new MenuBarItem(props);
+        var icon = domConstruct.create('i', {'class' : 'icon-camera-retro icon-large'});
+        domConstruct.place(icon, menuItem.domNode, 'first');
         
-        menuBar.addChild(menu);
+        if (props.selected) {
+          query('ul', li).forEach(function(ul) {
+            subMenuBar = new MenuBar();
+            domClass.add(subMenuBar, 'nav nav-pills');
+            query('li', ul).forEach(function(li) {
+              var item = new MenuBarItem(lang.mixin(getLinkProps(li), {
+                selected: li.id === 'selectedMenu'
+              }));
+              subMenuBar.addChild(item);
+            });
+            query('#iconhub-submenu-row div').forEach(function(n) {
+              domConstruct.place(subMenuBar.domNode, n);
+            });
+          });
+        }
+        else {
+          on(menuItem.domNode, 'mouseenter', function(evt) {
+            fx.anim(icon, { "fontSize": { start: 10, end:13, units:"pt" }}, 200);
+          });
+          on(menuItem.domNode, 'mouseleave', function(evt) {
+            fx.anim(icon, { "fontSize": { start: 13, end:10, units:"pt" }}, 200);
+          });
+        }
+        
+        menuBar.addChild(menuItem);
       });
 
       

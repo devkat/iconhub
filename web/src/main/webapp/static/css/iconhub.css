@@ -1,3 +1,10 @@
+/** Dark android
+#094036
+#247364
+#6BBFB0
+#F2F2F2
+#0D0D0D
+*/
 
 /*
 Chango
@@ -13,22 +20,46 @@ Tinos
 Abel
 Share
 */
-@import url(http://fonts.googleapis.com/css?family=Muli);
-@import url(http://fonts.googleapis.com/css?family=Squada+One);
+@import url('http://fonts.googleapis.com/css?family=Muli');
+@import url('http://fonts.googleapis.com/css?family=Squada+One');
 @import url('http://fonts.googleapis.com/css?family=Signika+Negative');
 @import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
 
+.loading {
+  background: url('/images/ajax-loader.gif') center top no-repeat;
+  height: 0;
+  padding-top: 24px;
+  overflow: hidden;
+  display: block !important;
+}
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
+  background: url('/images/textures/maxtextures_metal_texture.gif') left top repeat;
 }
 
 body > .container {
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.5);
+  padding: 0 20px;
+  margin-top: 20px;
 }
 
-header {
-  padding-top: 60px;
+header #iconhub-menu-row,
+header #iconhub-submenu-row {
+  margin-right: -20px;
+}
+
+header #iconhub-menu-row {
+  background-color: #6BBFB0;
+  padding: 20px 0 0 0;
+  height: 90px;
+}
+
+header #iconhub-submenu-row {
+  background-color: #F2F2F2;
   /*
-  border-bottom: solid 5px #CCCCCC;
+  border-bottom: solid 1px #6BBFB0;
   */
 }
 
@@ -53,6 +84,8 @@ h2 {
 
 .lead {
   margin-left: 1em;
+  color: #333333;
+  text-shadow: 1px 1px 1px #FFFFFF;
 }
 
 span.iconhub-logo-icon {
@@ -63,8 +96,18 @@ span.iconhub-logo-hub {
   color: #666666;
 }
 
-.dijitMenuBar {
-  margin-top: .5em;
+/*
+.dijitMenuBar > div:first-child {
+  float: right;
+}
+*/
+
+.dijitMenuItem {
+  text-align: center;
+}
+
+.dijitMenuItem span {
+  display: block;
 }
 
 #footer {
@@ -74,18 +117,16 @@ span.iconhub-logo-hub {
   font-size: .9em;
 }
 
-#content h2,
-#content h3,
-#content p,
-#content ul,
-#content ol {
+#content-wrapper {
+  margin-top: 20px;
 }
 
-#content h2 {
+#content-wrapper h2 {
   font-weight: bold;
+  font-size: 25px;
 }
 
-#content h3 {
+#content-wrapper h3 {
   font-weight: bold;
   font-size: 18px;
   margin-top: 1.5em;
@@ -94,9 +135,9 @@ span.iconhub-logo-hub {
   line-height: normal;
 }
 
-#content p,
-#content ul,
-#content ol {
+#content-wrapper p,
+#content-wrapper ul,
+#content-wrapper ol {
   font-size: 16px;
 }
 
@@ -128,26 +169,114 @@ a.signup {
   margin-left: 1em;
 }
 
-.image-block {
+.iconhub-icon-block {
+  margin-bottom: 16px;
+  background-color: #F2F2F2;
 }
 
-.image-wrapper {
-  width: 50px;
-  height: 50px;
-  overflow: hidden;
+.iconhub-icon-image-wrapper {
+  width: 128px;
+  height: 128px;
+  padding: 8px;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
 }
 
-.image-wrapper img {
-  max-width: 32px;
-  max-height: 32px;
+.iconhub-icon-image-wrapper img {
+  max-width: 128px;
+  max-height: 128px;
 }
 
-.image-title {
+.iconhub-icon-info {
   display: table-cell;
   vertical-align: middle;
+  /*
   width: 250px;
-  padding-left: 10px;
+  */
+  padding: 10px;
+  color: #CCCCCC;
+  font-size: 9pt;
+  line-height: 1.2em;
 }
+
+.iconhub-icon-title {
+  color: #000000;
+  font-weight: bold;
+  font-size: 10pt;
+}
+
+.claro .dijitMenuBar {
+  border: none;
+  background: none;
+}
+
+/*
+ ===== MAIN MENU =====
+ */
+
+.claro #iconhub-menu-row .dijitMenuBar {
+  padding-left: 100px;
+  height: 70px;
+  background: url('/images/logo/iconhub-logo-247364-2.png') left top no-repeat;
+}
+
+.claro #iconhub-menu-row .dijitMenuBar > .dijitMenuItem {
+  height: 70px;
+  padding: 20px 1em 0 1em;
+  margin: 0;
+  color: #247364;
+  display: table-cell;
+  vertical-align: bottom;
+}
+
+.claro #iconhub-menu-row .dijitMenuBar > .dijitMenuItem > span {
+  margin-bottom: 15px;
+}
+
+.claro .dijitMenuBar > .dijitMenuItem i {
+  font-size: 10pt;
+  vertical-align: bottom;
+}
+
+.claro #iconhub-menu-row .dijitMenuBar .dijitMenuItemHover,
+.claro #iconhub-menu-row .dijitMenuBar .dijitMenuItemSelected {
+  background: none;
+  border: none;
+  color: #094036;
+}
+
+.claro #iconhub-menu-row .dijitMenuBar .dijitMenuItemSelected {
+  background: url('/images/util/triangle-F2F2F2.png') center bottom no-repeat;
+}
+
+.claro .dijitMenuBar .dijitMenuItemSelected i {
+  font-size: 13pt;
+}
+
+/*
+ ===== SUB MENU =====
+ */
+
+.claro #iconhub-submenu-row .dijitMenuBar > .dijitMenuItem {
+  margin: 0;
+  color: #247364;
+  padding: 0 1em;
+}
+
+.claro #iconhub-submenu-row .dijitMenuBar > .dijitMenuItem > span {
+  margin: 10px 0;
+}
+
+.claro #iconhub-submenu-row .dijitMenuBar .dijitMenuItemHover,
+.claro #iconhub-submenu-row .dijitMenuBar .dijitMenuItemSelected {
+  background: none;
+  border: none;
+  color: #094036;
+}
+
+.claro #iconhub-submenu-row .dijitMenuBar .dijitMenuItemSelected {
+  background: url('/images/util/triangle-white.png') center bottom no-repeat;
+}
+
+

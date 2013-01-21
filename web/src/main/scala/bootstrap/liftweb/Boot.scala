@@ -66,21 +66,27 @@ class Boot {
 
     LiftRules.setSiteMap(SiteMap(List(
       Menu("Home") / "index" >> DefaultLogin >> Loc.Hidden,
-      //Menu("Role Test") / "restricted" >> RequireAuthentication >> HasRole("admin"),
       Menu("Login") / "login" >> DefaultLogin >> RequireNoAuthentication,
-      Menu("Sign up") / "signup" >> RequireNoAuthentication >> Loc.Hidden,
-      Menu("My icons") / "my" / "icons" >> RequireAuthentication submenus(
-        Menu("Create") / "my" / "icons" / "create" >> RequireAuthentication
+      Menu("My account") / "my" / "account" >> PlaceHolder >> RequireAuthentication submenus(
+        (Menu("My profile") / "profile" >> RequireAuthentication) :: Shiro.menus
       ),
-      Menu("My sets") / "my" / "sets" >> RequireAuthentication submenus(
-        Menu("Create") / "my" / "sets" / "create" >> RequireAuthentication,
-        Menu("Import") / "my" / "sets" / "import" >> RequireAuthentication
+      //Menu("Role Test") / "restricted" >> RequireAuthentication >> HasRole("admin"),
+      Menu("Sign up") / "signup" >> RequireNoAuthentication >> Loc.Hidden,
+      Menu("Explore") / "explore",
+      Menu("My iconhub") / "my" >> PlaceHolder >> RequireAuthentication submenus(
+        Menu("My icons") / "my" / "icons" >> RequireAuthentication submenus (
+          Menu("Create") / "my" / "icons" / "create" >> RequireAuthentication >> Loc.Hidden
+        ),
+        Menu("My sets") / "my" / "sets" >> RequireAuthentication submenus(
+          Menu("Create") / "my" / "sets" / "create" >> RequireAuthentication >> Loc.Hidden
+        ),
+        Menu("Import from web") / "my" / "import" >> RequireAuthentication
       ),
       Menu(IconSetLoc), // >> RequireAuthentication
       Menu("About") / "about" >> Hidden >> LocGroup("footer"),
       Menu("Static") / "static" / ** >> Hidden
+      ) : _*
       )
-      ::: Shiro.menus: _*)
     )
 
     /*

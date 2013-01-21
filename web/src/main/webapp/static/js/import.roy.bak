@@ -1,0 +1,98 @@
+type Content = { uri: String }
+type Request = { url: String, content: Content }
+
+define [
+  './native',
+  'dojo/_base/lang',
+  'dojo/_base/xhr',
+  'dojo/on',
+  'dojo/dom',
+  'dojo/dom-construct',
+  "dojo/_base/array",
+  "dojox/form/RangeSlider",
+  "dojo/dom-style",
+  "dojo/_base/event",
+  "dojo/query",
+  './widgets/IconBlock'
+] (\Native lang xhr on dom domConstruct array RangeSlider domStyle event query IconBlock ->
+
+  let ajaxRequest = {
+    return: \x -> x
+    bind: \(x : Request) f ->
+      xhr.get { url: x.url, content: x.content, handleAs: "json", load: f }
+  }
+  
+  type Range = {min:Number, max:Number}
+  
+  let absRange = {min:1, max:128}
+  let range = {min:16, max:32}
+  
+  let sizeLimitChanged (r:Range) =
+    showSizeLimit r
+    filterImages r
+  
+  let showSizeLimit (r:Range) =
+      let f = \label value -> Native.setProperty (dom.byId "iconSize" ++ label) "innerHTML" value
+      f "Min" r.min
+      f "Max" r.max
+
+  let matches block img =
+    let imgNode = if img == undefined then (query "img" block)[0] else img
+    console.log img.src ++ " -> " ++ img.width ++ ", " ++ img.height
+    let size = Math.max img.width img.height
+    range.min <= size && size <= range.max
+
+  let filter block =
+    let v = if matches block undefined then "" else "none"
+    Native.setProperty block.style "display" v
+    ""
+  
+  let forAllImages f =
+    (query ".image-block" (dom.byId "images")).forEach f
+  
+  let finished =
+    domStyle.set "iconSizeGroup" "display" ""
+  
+
+  let parse uri = (do ajaxRequest
+    images <- { url: "/api/imagescraper", content: { uri: uri } }
+    let container = dom.byId "images"
+    let nodes = array.map images (\image ->
+      let img = domConstruct.create "img" { src: image.url }
+      let imgContainer = domConstruct.create "div" { className: "image-wrapper" }
+      imgContainer.appendChild img
+      let block = domConstruct.create "div" { className: "span4 image-block" }
+      block.appendChild imgContainer
+      if image.title != undefined then
+        (block.appendChild (domConstruct.create "span" { innerHTML: image.title, className: "image-title" }))
+      else
+        ""
+      block
+    )
+    
+    array.forEach images (\image ->
+      let block = Native.create IconBlock [image]
+      Native.assign block "load" (lang.partial "filter" block)
+      domConstruct.place block.domNode container
+    )
+    
+    array.forEach nodes (\node -> container.appendChild node)
+    let args = {
+      value: [min, max]
+      minimum: absMin
+      maximum: absMax
+      discreteValues: absMax - absMin + 1
+      style: "width: 300px"
+      intermediateChanges: true
+      onChange: (\v -> updateValues v[0] v[1])
+    }
+    Native.create dojox.form.HorizontalRangeSlider [args, "slider"]
+    updateValues [min, max]
+    domStyle.set "iconSizeGroup" "display" ""
+  )
+
+  on (dom.byId "uri") "change" (\evt ->
+    let uri = evt.target.value
+    if uri == "" then null else (parse uri)
+  )
+)

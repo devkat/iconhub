@@ -1,0 +1,29 @@
+
+h3. Site structure
+
+* [P] Home
+
+* Access control
+** [P] Login
+** [P] Register
+** [P] Forgot password
+
+* Explore
+** [P] Search
+** [P] Browse
+*** Icons
+*** Sets
+*** Users
+
+* My iconhub
+** [P] My icons
+** [P] My sets
+** [P] Import icons
+** [P] My favourites
+
+* My account
+** [P] My profile
+** [P] Logout
+
+* About
+** [P] About iconhub

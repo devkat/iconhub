@@ -1,0 +1,42 @@
+<lift:surround with="default" at="content">
+  <head_merge>
+    <script type="text/javascript">
+    require(['iconhub/import'], function(imp) {
+    });
+    </script>
+    <style type="text/css">
+      @import url(/static/vendor/dojo/1.8.1/dojox/form/resources/RangeSlider.css);
+    </style>
+  </head_merge>
+  
+  <div class="row">
+    <div class="span12">
+      <h2>Import icon set from web page</h2>
+      
+      <form class="form-horizontal">
+      
+        <legend>Please enter the URI of the web page you want to import icons from.</legend>
+        <div class="control-group">
+          <label class="control-label">URI:</label>
+          <div class="controls">
+            <input id="uri" type="text" class="input-xxlarge"/>
+            <button id="test" class="btn">Test</button>
+          </div>
+        </div>
+        
+        <div id="iconsContainer" style="display: none">
+          <div class="control-group">
+            <label class="control-label">Icon size:</label>
+            <div class="controls">
+              <p id="iconSizeIndicator"></p>
+              <div id="slider"></div>
+            </div>
+          </div>
+          <div class="row" id="images"></div>
+        </div>
+        <div id="loadInfo" style="display: none; text-align: center;"></div>
+      </form>
+    </div>
+  </div>
+  
+</lift:surround>
