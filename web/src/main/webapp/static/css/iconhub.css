@@ -58,6 +58,7 @@ header #iconhub-menu-row {
 
 header #iconhub-submenu-row {
   background-color: #F2F2F2;
+  height: 40px;
   /*
   border-bottom: solid 1px #6BBFB0;
   */
@@ -101,14 +102,6 @@ span.iconhub-logo-hub {
   float: right;
 }
 */
-
-.dijitMenuItem {
-  text-align: center;
-}
-
-.dijitMenuItem span {
-  display: block;
-}
 
 #footer {
   margin-top: 4em;
@@ -206,77 +199,112 @@ a.signup {
   font-size: 10pt;
 }
 
-.claro .dijitMenuBar {
-  border: none;
-  background: none;
-}
+/* ===== MENU ===== */
 
-/*
- ===== MAIN MENU =====
- */
-
-.claro #iconhub-menu-row .dijitMenuBar {
+#iconhub-menu {
   padding-left: 100px;
   height: 70px;
   background: url('/images/logo/iconhub-logo-247364-2.png') left top no-repeat;
-}
-
-.claro #iconhub-menu-row .dijitMenuBar > .dijitMenuItem {
-  height: 70px;
-  padding: 20px 1em 0 1em;
+  position: relative;
   margin: 0;
-  color: #247364;
+}
+
+#iconhub-menu a:hover {
+  text-decoration: none;
+}
+
+#iconhub-menu li {
   display: table-cell;
+  cursor: pointer;
+}
+
+#iconhub-menu > li {
+  height: 55px;
+  padding: 35px 10px 0 10px;
+  color: #247364;
+  /*
   vertical-align: bottom;
+  */
 }
 
-.claro #iconhub-menu-row .dijitMenuBar > .dijitMenuItem > span {
-  margin-bottom: 15px;
-}
-
-.claro .dijitMenuBar > .dijitMenuItem i {
+#iconhub-menu > li i {
   font-size: 10pt;
+  line-height: 1em;
+  /*
   vertical-align: bottom;
+  */
 }
 
-.claro #iconhub-menu-row .dijitMenuBar .dijitMenuItemHover,
-.claro #iconhub-menu-row .dijitMenuBar .dijitMenuItemSelected {
-  background: none;
-  border: none;
+#iconhub-menu > li:hover,
+#iconhub-menu > li.selected {
   color: #094036;
-}
-
-.claro #iconhub-menu-row .dijitMenuBar .dijitMenuItemSelected {
   background: url('/images/util/triangle-F2F2F2.png') center bottom no-repeat;
 }
 
-.claro .dijitMenuBar .dijitMenuItemSelected i {
-  font-size: 13pt;
-}
-
-/*
- ===== SUB MENU =====
- */
-
-.claro #iconhub-submenu-row .dijitMenuBar > .dijitMenuItem {
-  margin: 0;
+#iconhub-menu a {
   color: #247364;
-  padding: 0 1em;
 }
 
-.claro #iconhub-submenu-row .dijitMenuBar > .dijitMenuItem > span {
-  margin: 10px 0;
-}
-
-.claro #iconhub-submenu-row .dijitMenuBar .dijitMenuItemHover,
-.claro #iconhub-submenu-row .dijitMenuBar .dijitMenuItemSelected {
-  background: none;
-  border: none;
+#iconhub-menu > li:hover a,
+#iconhub-menu > li.selected a {
   color: #094036;
 }
 
-.claro #iconhub-submenu-row .dijitMenuBar .dijitMenuItemSelected {
+#iconhub-menu > li.selected i {
+  font-size: 13pt;
+}
+
+#iconhub-menu > li {
+  text-align: center;
+}
+
+#iconhub-menu span,
+#iconhub-menu a {
+  display: block;
+}
+
+#iconhub-menu ul {
+  position: absolute;
+  top: 90px;
+  left: -1000px;
+  width: 90%;
+}
+
+#iconhub-menu li:hover ul,
+#iconhub-menu li.selected ul {
+  left: 0;
+}
+
+#iconhub-menu li:hover ul {
+  z-index: 5;
+  background-color: #F2F2F2;
+}
+
+#iconhub-menu ul li {
+  margin: 0;
+  height: 40px;
+  padding: 0 1em;
+  vertical-align: middle;
+}
+
+#iconhub-menu li:hover ul li a,
+#iconhub-menu li.selected ul li a,
+#iconhub-menu ul li span {
+  color: #247364;
+}
+
+#iconhub-menu ul li > span {
+  margin: 10px 0;
+}
+
+#iconhub-menu li.selected ul li:hover,
+#iconhub-menu li.selected ul li#selectedMenu {
   background: url('/images/util/triangle-white.png') center bottom no-repeat;
+}
+
+#iconhub-menu li.selected ul li:hover *,
+#iconhub-menu li.selected ul li#selectedMenu * {
+  color: #094036;
 }
 
 

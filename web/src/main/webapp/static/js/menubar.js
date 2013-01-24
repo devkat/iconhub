@@ -34,33 +34,20 @@ define([
 ) {
 
   ready(function() {
+
     query('#iconhub-menu').forEach(function(menuBarNode) {
-      var menuBar = new MenuBar();
-      domClass.add(menuBar, 'nav nav-pills');
-      
-      function getLinkProps(node) {
-        var info = {};
-        query('> a, > span', node).forEach(function(n) {
-          info = { label: n.innerHTML };
-          if (n.href) {
-            info.onClick = "window.location.href='" + n.href + "'";
-          }
-        });
-        return info;;
-      }
 
       query('> li', menuBarNode).forEach(function(li) {
-        var
-          props = getLinkProps(li);
-          
-        if (li.id === 'selectedMenu' || query('li[id="selectedMenu"]', li).length > 0) {
-          props.selected = true;
+        var selected = li.id === 'selectedMenu' || query('li[id="selectedMenu"]', li).length > 0;
+        if (selected) {
+          domClass.add(li, 'selected');
         }
 
-        var menuItem = new MenuBarItem(props);
         var icon = domConstruct.create('i', {'class' : 'icon-camera-retro icon-large'});
-        domConstruct.place(icon, menuItem.domNode, 'first');
+        // domConstruct.create('span', { className: 'icon-container' }, li, 'first')
+        domConstruct.place(icon, li, 'first');
         
+        /*
         if (props.selected) {
           query('ul', li).forEach(function(ul) {
             subMenuBar = new MenuBar();
@@ -86,6 +73,7 @@ define([
         }
         
         menuBar.addChild(menuItem);
+        */
       });
 
       
@@ -105,7 +93,7 @@ define([
         domAttr.set(li, 'data-dojo-type', 'dijit/MenuItem');
       });
        */
-      domConstruct.place(menuBar.domNode, menuBarNode, 'replace');
+      //domConstruct.place(menuBar.domNode, menuBarNode, 'replace');
     });
   });
 });
