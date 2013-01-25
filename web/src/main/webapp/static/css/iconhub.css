@@ -228,6 +228,8 @@ a.signup {
 }
 
 #iconhub-menu > li i {
+  transition-property: 'font-size';
+  transition-duration: 0.3s;
   font-size: 10pt;
   line-height: 1em;
   /*
@@ -236,7 +238,7 @@ a.signup {
 }
 
 #iconhub-menu > li:hover,
-#iconhub-menu > li.selected {
+#iconhub-menu > li.selected-menu-parent {
   color: #094036;
   background: url('/images/util/triangle-F2F2F2.png') center bottom no-repeat;
 }
@@ -246,11 +248,17 @@ a.signup {
 }
 
 #iconhub-menu > li:hover a,
-#iconhub-menu > li.selected a {
+#iconhub-menu > li.selected-menu-parent a {
   color: #094036;
 }
 
-#iconhub-menu > li.selected i {
+#iconhub-menu > li:hover i {
+  transition-property: 'font-size';
+  transition-duration: 0.3s;
+  font-size: 13pt;
+}
+
+#iconhub-menu > li.selected-menu-parent i {
   font-size: 13pt;
 }
 
@@ -271,7 +279,7 @@ a.signup {
 }
 
 #iconhub-menu li:hover ul,
-#iconhub-menu li.selected ul {
+#iconhub-menu li.selected-menu-parent ul {
   left: 0;
 }
 
@@ -288,7 +296,7 @@ a.signup {
 }
 
 #iconhub-menu li:hover ul li a,
-#iconhub-menu li.selected ul li a,
+#iconhub-menu li.selected-menu-parent ul li a,
 #iconhub-menu ul li span {
   color: #247364;
 }
@@ -297,13 +305,13 @@ a.signup {
   margin: 10px 0;
 }
 
-#iconhub-menu li.selected ul li:hover,
-#iconhub-menu li.selected ul li#selectedMenu {
+#iconhub-menu li.selected-menu-parent ul li:hover,
+#iconhub-menu li.selected-menu-parent ul li#selected-menu-item {
   background: url('/images/util/triangle-white.png') center bottom no-repeat;
 }
 
-#iconhub-menu li.selected ul li:hover *,
-#iconhub-menu li.selected ul li#selectedMenu * {
+#iconhub-menu li.selected-menu-parent ul li:hover *,
+#iconhub-menu li.selected-menu-parent ul li#selected-menu-item * {
   color: #094036;
 }
 

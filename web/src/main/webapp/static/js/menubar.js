@@ -35,17 +35,25 @@ define([
 
   ready(function() {
 
+    var name2icon = {
+      login: 'signin',
+      my_account: 'user',
+      my_iconhub: 'home',
+      explore: 'eye-open'
+    };
+
     query('#iconhub-menu').forEach(function(menuBarNode) {
-
       query('> li', menuBarNode).forEach(function(li) {
-        var selected = li.id === 'selectedMenu' || query('li[id="selectedMenu"]', li).length > 0;
-        if (selected) {
-          domClass.add(li, 'selected');
-        }
 
-        var icon = domConstruct.create('i', {'class' : 'icon-camera-retro icon-large'});
-        // domConstruct.create('span', { className: 'icon-container' }, li, 'first')
-        domConstruct.place(icon, li, 'first');
+        _.each(li.className.split(/\s/), function(cl) {
+          if (cl.startsWith('menu-item-')) {
+            var iconName = name2icon[cl.substring('menu-item-'.length)];
+            if (iconName) {
+              var icon = domConstruct.create('i', {'class' : 'icon-' + iconName + ' icon-large'});
+              domConstruct.place(icon, li, 'first');
+            }
+          }
+        });
         
         /*
         if (props.selected) {

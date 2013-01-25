@@ -19,6 +19,8 @@ import java.util.Locale
 import net.iconhub.auth.IconhubOpenIdVendor
 import net.iconhub.sitemap.IconSetLoc
 import net.iconhub.rest.ImageScraper
+import net.liftweb.sitemap.Menu.Menuable
+import net.liftweb.sitemap.Loc.MenuCssClass
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -63,17 +65,17 @@ class Boot {
     //LiftRules.addToPackages("eu.getintheloop") // Shiro
     LiftRules.addToPackages("net.iconhub")
     LiftRules.addToPackages("shiro")
-
-    LiftRules.setSiteMap(SiteMap(List(
-      Menu("Home") / "index" >> DefaultLogin >> Loc.Hidden,
-      Menu("Login") / "login" >> DefaultLogin >> RequireNoAuthentication,
-      Menu("My account") / "my" / "account" >> PlaceHolder >> RequireAuthentication submenus(
+    
+    val items = List[ConvertableToMenu](
+      Menu("home", "Home") / "index" >> DefaultLogin >> Loc.Hidden,
+      Menu("login", "Login") / "login" >> DefaultLogin >> RequireNoAuthentication,
+      Menu("my_account", "My account") / "my" / "account" >> PlaceHolder >> RequireAuthentication submenus(
         (Menu("My profile") / "profile" >> RequireAuthentication) :: Shiro.menus
       ),
       //Menu("Role Test") / "restricted" >> RequireAuthentication >> HasRole("admin"),
       Menu("Sign up") / "signup" >> RequireNoAuthentication >> Loc.Hidden,
-      Menu("Explore") / "explore",
-      Menu("My iconhub") / "my" >> PlaceHolder >> RequireAuthentication submenus(
+      Menu("explore", "Explore") / "explore",
+      Menu("my_iconhub", "My iconhub") / "my" >> PlaceHolder >> RequireAuthentication submenus(
         Menu("My icons") / "my" / "icons" >> RequireAuthentication submenus (
           Menu("Create") / "my" / "icons" / "create" >> RequireAuthentication >> Loc.Hidden
         ),
@@ -85,9 +87,14 @@ class Boot {
       Menu(IconSetLoc), // >> RequireAuthentication
       Menu("About") / "about" >> Hidden >> LocGroup("footer"),
       Menu("Static") / "static" / ** >> Hidden
-      ) : _*
-      )
     )
+    
+    def addCssClass(c:ConvertableToMenu) = c match {
+      case m:Menuable => m >> MenuCssClass("menu-item-" + m.name)
+      case _ => c
+    }
+
+    LiftRules.setSiteMap(SiteMap(items map addCssClass _ : _*))
 
     /*
      * Show the spinny image when an Ajax call starts
